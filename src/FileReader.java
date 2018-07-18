@@ -14,7 +14,7 @@ public class FileReader {
 		
 	public void readFile() {
 	  
-		 String csvFile = "input/de_cc_data.txt";
+		 String csvFile = "input/testInput.txt";
 	        String line = "";
 	       
 	    
@@ -73,7 +73,7 @@ public class FileReader {
 			{
 				uniqueDrugList[i][2] = Float.toString(Float.parseFloat(drungEntry[1]) + Float.parseFloat(uniqueDrugList[i][2]));
 				uniqueDrugList[i][1] = Integer.toString(Integer.parseInt(uniqueDrugList[i][1])+1);
-				System.out.println("  "+uniqueDrugList[i][0]+"  "+uniqueDrugList[i][1]+"  "+uniqueDrugList[i][2]);
+			//	System.out.println("  "+uniqueDrugList[i][0]+"  "+uniqueDrugList[i][1]+"  "+uniqueDrugList[i][2]);
 			
 				sortList(i);
 				flag = true;
@@ -87,7 +87,7 @@ public class FileReader {
 				uniqueDrugList[count][0] = drungEntry[0];
 				uniqueDrugList[count][1] = Integer.toString(1);
 				uniqueDrugList[count][2] = drungEntry[1];
-				System.out.println("  "+uniqueDrugList[count][0]+"  "+uniqueDrugList[count][1]+"  "+uniqueDrugList[count][2]);
+			//	System.out.println("  "+uniqueDrugList[count][0]+"  "+uniqueDrugList[count][1]+"  "+uniqueDrugList[count][2]);
 		
 				sortList(count);
 				break;
@@ -147,10 +147,10 @@ public class FileReader {
 			bw.write("drug_name,num_prescriber,total_cost");
 			bw.newLine();
 			
-			for (int i = 0; i < uniqueDrugList.length; i++) {
+			for (int i = 1; i < uniqueDrugList.length; i++) {
 				if(uniqueDrugList[i][1]!=null)
 				{
-					String content = uniqueDrugList[i][1]+" ,  "+uniqueDrugList[i][2]+" , "+uniqueDrugList[i][3];
+					String content = uniqueDrugList[i][0]+" ,  "+uniqueDrugList[i][2]+" , "+uniqueDrugList[i][2];
 				bw.write(content);
 				bw.newLine();
 			
