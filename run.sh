@@ -1,3 +1,2 @@
-cd src
-javac -d .  FileReader.java
-java FileReader ../input/itcont.txt ../output/top_cost_drug.txt
+javac ./src/FileReader.java
+java -classpath ./src FileReader
