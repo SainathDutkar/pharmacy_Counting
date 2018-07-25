@@ -1,32 +1,50 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStreamReader;
+
+
 
 public class FileReader {
 
+	public static void main(String[] args)
+	{
+		FileReader fr = new FileReader();
+		
+		fr.readFile();
+	//	System.out.println("List created");
+		fr.sort();
+	//	System.out.println("sorted");
+		fr.writeData();
+	}
 	
-	String[][] uniqueDrugList = new String[500000][3] ;
+	String[][] uniqueDrugList = new String[5000][3] ;
 	static int count = 0;
+	static int listLength = 0;
 	
 		
 	public void readFile() {
 	  
-		 String csvFile = "input/testInput.txt";
-	        String line = "";
-	       
-	    
-	  
+		 String csvFile = "input/de_cc_data.txt";
+	        String Cline = "";
+        	FileInputStream inputStream = null;
+        
+        	String amount = null;
 	        try  {
-	         	
-	        	BufferedReader br = new BufferedReader(new java.io.FileReader(csvFile));
-
-	            while ((line = br.readLine()) != null) {
-
-	            
-	            	String amount = line.substring(line.lastIndexOf(',')+1, line.length());
+	       
+	        	
+	      	BufferedReader br = new BufferedReader(new java.io.FileReader(csvFile));
+	    
+	        	
+	        		Cline = br.readLine();
+	            while (Cline  != null) {
+	            	
+	            	
+	            	String line = Cline;
+	            	
+	                amount = line.substring(line.lastIndexOf(',')+1, line.length());
 	            	String drugname=null;
 	            	String subLine = null ;
 
@@ -44,24 +62,34 @@ public class FileReader {
 	            			
 	            	            	
 	                String[] pharmacy = new String[2];
+	                
+	                if(!amount.equals("drug_cost"))
+	                {
+	       
+	                
 	                pharmacy[1] = amount;
 	                pharmacy[0] = drugname;		
+	                
+	     
 	              
 	                setDrugValue(pharmacy);
+	                }
 	           
-	           
-	         
+	                Cline = br.readLine();
 	              
 	            }
 
 	        } catch (IOException e) {
-	            e.printStackTrace();
+	            System.out.println(amount);
+	        //	e.printStackTrace();
+	            
 	        }
 	}
 	
 	
 	public void setDrugValue(String[] drungEntry)
 	{
+		
 	 boolean flag = false;
 		for (int i = 0; i < uniqueDrugList.length; i++) 
 		{
@@ -71,11 +99,13 @@ public class FileReader {
 			}
 			else if(drungEntry[0].equals(uniqueDrugList[i][0]))
 			{
-				uniqueDrugList[i][2] = Float.toString(Float.parseFloat(drungEntry[1]) + Float.parseFloat(uniqueDrugList[i][2]));
+				String sum = Double.toString(Double.parseDouble(drungEntry[1]) + Double.parseDouble(uniqueDrugList[i][2]));
+				
+			  Double tempo = Math.round(Double.parseDouble(sum)*100.0)/100.0;
+				uniqueDrugList[i][2] = tempo.toString();
+				
 				uniqueDrugList[i][1] = Integer.toString(Integer.parseInt(uniqueDrugList[i][1])+1);
-			//	System.out.println("  "+uniqueDrugList[i][0]+"  "+uniqueDrugList[i][1]+"  "+uniqueDrugList[i][2]);
-			
-				sortList(i);
+		
 				flag = true;
 				break;
 			}
@@ -87,58 +117,19 @@ public class FileReader {
 				uniqueDrugList[count][0] = drungEntry[0];
 				uniqueDrugList[count][1] = Integer.toString(1);
 				uniqueDrugList[count][2] = drungEntry[1];
-			//	System.out.println("  "+uniqueDrugList[count][0]+"  "+uniqueDrugList[count][1]+"  "+uniqueDrugList[count][2]);
-		
-				sortList(count);
+		  
 				break;
 			}
 		count++;
 		}
 	}
-	
-	public void sortList(int drugPosition)
-	{
-		boolean flag = true;
-		while(flag && drugPosition>1 )
-		{
-			
-				try {
-					if((Float.parseFloat(uniqueDrugList[drugPosition][2]) > Float.parseFloat(uniqueDrugList[drugPosition-1][2])) )
-					{
-						String[] temp = uniqueDrugList[drugPosition];
-						uniqueDrugList[drugPosition] = uniqueDrugList[drugPosition-1];
-						uniqueDrugList[drugPosition-1] = temp;
-						drugPosition -- ;
-					}
-					else if((Float.parseFloat(uniqueDrugList[drugPosition][2]) == Float.parseFloat(uniqueDrugList[drugPosition-1][2])) )
-					{
-						if(((uniqueDrugList[drugPosition][0]).compareTo(uniqueDrugList[drugPosition-1][0]))>0)
-						{
-							String[] temp = uniqueDrugList[drugPosition];
-							uniqueDrugList[drugPosition] = uniqueDrugList[drugPosition-1];
-							uniqueDrugList[drugPosition-1] = temp;
-							drugPosition -- ;
-						}
-					}
-					else
-					{
-						flag = false;
-					}
-				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 		
-		}
-	}
-	
 	public void writeData()
 	{
 		BufferedWriter bw = null;
 		FileWriter fw = null;
 		try {
 			
-
 			//String content = "This is the content to write into file\n";
 
 			fw = new FileWriter("output/output.txt");
@@ -150,13 +141,13 @@ public class FileReader {
 			for (int i = 1; i < uniqueDrugList.length; i++) {
 				if(uniqueDrugList[i][1]!=null)
 				{
-					String content = uniqueDrugList[i][0]+" ,  "+uniqueDrugList[i][2]+" , "+uniqueDrugList[i][2];
+					String content = uniqueDrugList[i][0]+" ,  "+uniqueDrugList[i][1]+" , "+uniqueDrugList[i][2];
 				bw.write(content);
 				bw.newLine();
 			
 				}
 			}
-
+			
 			System.out.println("Done");
 
 		} catch (IOException e) {
@@ -182,4 +173,52 @@ public class FileReader {
 		}
 	}
 	
+    String[][] array = uniqueDrugList;
+	
+    public void sort()
+    {
+    	quickSort(array, 1, count-1);
+    }
+	 
+	 public static void quickSort(String[][] arr, int low, int high) {
+			if (arr == null || arr.length == 0)
+				return;
+	 
+			if (low >= high)
+				return;
+	 
+			// pick the pivot
+			int middle = low + (high - low) / 2;
+			String[] pivot = arr[middle];
+	 
+			
+			int i = low, j = high;
+			while (i <= j) {
+				while (Double.parseDouble(arr[i][2]) > Double.parseDouble(pivot[2])) 
+				{
+					i++;
+				}
+	 
+				while (Double.parseDouble(arr[j][2]) < Double.parseDouble(pivot[2])) {
+					j--;
+				}
+	 
+				if (j >= i) {
+					String[] temp = arr[i];
+					arr[i] = arr[j];
+					arr[j] = temp;
+					i++;
+					j--;
+				}
+			}
+	 
+			
+			if (low < j)
+				quickSort(arr, low, j);
+	 
+			if (high > i)
+				quickSort(arr, i, high);
+		}
+	
+		
 }
