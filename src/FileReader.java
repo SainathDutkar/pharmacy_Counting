@@ -9,16 +9,7 @@ import java.io.InputStreamReader;
 
 class FileReader {
 
-	public static void main(String[] args)
-	{
-		FileReader fr = new FileReader();
-		
-		fr.readFile();
-	//	System.out.println("List created");
-		fr.sort();
-	//	System.out.println("sorted");
-		fr.writeData();
-	}
+	
 	
 	String[][] uniqueDrugList = new String[5000][3] ;
 	static int count = 0;
@@ -220,5 +211,18 @@ class FileReader {
 				quickSort(arr, i, high);
 		}
 	
+	
+	public static void main(String[] args)
+	{
+		FileReader fr = new FileReader();
 		
+		fr.readFile();
+	//	System.out.println("List created");
+		fr.sort();
+	//	System.out.println("sorted");
+		fr.writeData();
+	}
+	
+	
+	
 }
