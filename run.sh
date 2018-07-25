@@ -1,2 +1,2 @@
-javac FileReader.java
+javac /src/FileReader.java
 java FileReader
