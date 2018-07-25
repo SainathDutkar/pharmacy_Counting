@@ -1,4 +1,4 @@
 javac /src/FileReader.java
-classpath=~/src FileReader
+classpath=~/src java FileReader
 
 #java -classpath /src FileReader
