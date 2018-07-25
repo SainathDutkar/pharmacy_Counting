@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 
 
 
-public class FileReader {
+class FileReader {
 
 	public static void main(String[] args)
 	{
