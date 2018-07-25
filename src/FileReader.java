@@ -18,7 +18,7 @@ class FileReader {
 		
 	public void readFile() {
 	  
-		 String csvFile = "input/de_cc_data.txt";
+		 String csvFile = "input/testInput.txt";
 	        String Cline = "";
         	FileInputStream inputStream = null;
         
