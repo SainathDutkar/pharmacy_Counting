@@ -132,7 +132,7 @@ public class FileReader {
 			
 			//String content = "This is the content to write into file\n";
 
-			fw = new FileWriter("output/output.txt");
+			fw = new FileWriter("output/top_cost_drug.txt");
 			bw = new BufferedWriter(fw);
 			
 			bw.write("drug_name,num_prescriber,total_cost");
