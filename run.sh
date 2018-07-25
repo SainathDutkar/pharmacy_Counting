@@ -1,2 +1,2 @@
-javac -cp .:lib.jar ./src/FileReader.java
-java -classpath ./src/FileReader
+javac ./src/FileReader.java
+java -classpath ./src FileReader
