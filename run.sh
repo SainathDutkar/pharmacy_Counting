@@ -1,3 +1,3 @@
-javac  -classpath src/FileReader.java
 cd src
+javac -d .  FileReader.java
 java FileReader
