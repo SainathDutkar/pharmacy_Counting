@@ -1,3 +1,3 @@
-javac src/FileReader.java
+javac FileReader.java
 cd src
 java FileReader
