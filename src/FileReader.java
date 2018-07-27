@@ -18,7 +18,7 @@ class FileReader {
 		
 	public void readFile() {
 	  
-		 String csvFile = "input/testInput.txt";
+		 String csvFile = "../input/testInput.txt";
 	        String Cline = "";
         	FileInputStream inputStream = null;
         
@@ -123,7 +123,7 @@ class FileReader {
 			
 			//String content = "This is the content to write into file\n";
 
-			fw = new FileWriter("output/top_cost_drug.txt");
+			fw = new FileWriter("../output/top_cost_drug.txt");
 			bw = new BufferedWriter(fw);
 			
 			bw.write("drug_name,num_prescriber,total_cost");
