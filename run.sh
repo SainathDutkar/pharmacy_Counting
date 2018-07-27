@@ -1,2 +1,2 @@
-javac  -cp src src/FileReader.java
+javac  -cp src .src/FileReader.java
 java -cp src src/FileReader
